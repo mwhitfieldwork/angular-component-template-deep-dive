@@ -31,7 +31,7 @@ article {
     text-align: left;
   }
   
-  button {
+  /*button {
     flex: 1;
     width: 100%;
     font: inherit;
@@ -41,7 +41,7 @@ article {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+  }*/
   
   button span:first-child {
     margin-bottom: 0.1rem;
@@ -61,12 +61,12 @@ article {
     padding-top: 0;
   }
   
-  p button {
+  /*p button {
     padding: 0;
     width: auto;
     display: inline;
     font-size: 0.75rem;
-  }
+  }*/
   
   p button:hover {
     color: #ec9fea;
