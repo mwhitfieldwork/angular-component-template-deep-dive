@@ -29,6 +29,7 @@ export class TicketsComponent {
    @HostListener('click') onHostListenerMethod() {
     console.log('clicked by host listener');
     console.log(this.el.nativeElement);
+    
    }
 
 

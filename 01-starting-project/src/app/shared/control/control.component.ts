@@ -1,4 +1,4 @@
-import { Component, input, ViewEncapsulation } from '@angular/core';
+import { Component, contentChild, ContentChild, ElementRef, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',// THE APP-CONTROL SELECTOR - THIS IS ALSO THE HOST ELEMENT - WHICH CAN BE TARGETED BY CSS
@@ -9,12 +9,30 @@ import { Component, input, ViewEncapsulation } from '@angular/core';
   styleUrl: './control.component.css',
   encapsulation: ViewEncapsulation.None, // we  need to disable the scope of the css. So 
                                         //we need to scope the css of this component globally to account for the content projected markup
-  
+
   host:{ 
-    class:'control'
-  }//automatically targets the <app-control> element with class="control" so that you dont have to 
-  //add a class of control to the <app-control> element whereever it is used. Short cut                                      
+    class:'control',
+    '(click)':'onclick()'
+  }//automatically puts the <app-control> element a class="control" so that you dont have to 
+  //add a class of control to the <app-control> element whereever it is used. Short cut    
 })
+
 export class ControlComponent {
 label = input.required<string>();
+
+//private control = contentChild<ElementRef<HTMLInputElement|HTMLTextAreaElement>>('input') 
+//Tell typescript which types will be in the signal
+
+@ContentChild('input') private control?:ElementRef<HTMLInputElement|HTMLTextAreaElement> 
+//in order to gain access to the DOM elements that are PROJECTED into the view
+// the 'input is the template var on both the textearea and the input elements.
+// Therefore both kinds of DOM elements needs to be specified in the <generic> part of the ContentChild
+
+//ContentChild is used instead of ContentChildren because when the template-read dom elements are accessed,
+//there will be only one instance of either the textarea or the input element 
+onclick() {
+  console.log('clicked');
+  console.log(this.control);
+  //console.log(this.control()); // as a signal
+}
 }
