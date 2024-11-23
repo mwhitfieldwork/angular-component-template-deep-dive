@@ -1,11 +1,17 @@
-<form>
+<form (ngSubmit)="onSubmit()" #form>
     <!--<app-control label="Ticket" class="control">  you can add classes to the host element like a regular element-->
     <app-control label="Ticket" > 
-        <input name="'title" id="title"/>
+        <input name="'title" id="title" #titleInput #input/>
+        <!--you can have mulitple template varaiables, ANNNND, you can resuse template variable to target 
+        different parts of the template ( for example the #input is on both the input and text area) 
+        this is because the content child of the control component uses input in the ContentChild-->
     </app-control>
 
-    <app-control label="Request">
-        <textarea name="'request" id="request" rows="3"></textarea>
+    <app-control label="Request" #ctrl> <!-- using the ctrl template variable here send the control to the onSubmit, not the HTMLElement DOM-->
+                                         <!-- if you put a template var on an HTMLELement you get access to the dOM, but on a control, you get access to the control'   s things -->
+        <textarea name="'request" id="request" rows="3" #textarea #input></textarea>
+
+        
     </app-control>
 
     <p>
