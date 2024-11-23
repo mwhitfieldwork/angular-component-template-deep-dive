@@ -1,4 +1,7 @@
 <span>
 <ng-content></ng-content>
 </span>
-<ng-content select=".icon"></ng-content>
+<ng-content select=".icon">
+    o <!-- Serves as a fallback icon instead of X --only in the latest version of Angular-->
+</ng-content>
+<!--<ng-content select="icon"></ng-content>--> <!-- Uses projected As -->
