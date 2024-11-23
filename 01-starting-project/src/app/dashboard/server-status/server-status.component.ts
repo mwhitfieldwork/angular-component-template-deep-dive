@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component,DestroyRef, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -7,11 +7,17 @@ import { Component, Input } from '@angular/core';
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css'
 })
-export class ServerStatusComponent {
+export class ServerStatusComponent implements OnInit, AfterViewInit, OnDestroy {
   currentStatus: 'online' | 'offline' | 'unknown' = 'online';
 
-  constructor() { 
-    setInterval(() => {
+  //the use of private in  angular means that we dont need it in the template
+  private interval?: ReturnType<typeof setInterval>;
+
+  //Modern way of cleanup
+ //private destroyRef = inject(DestroyRef);
+
+  ngOnInit() { 
+   const interval =  setInterval(() => {
       const rnd = Math.random();
       if(rnd <0.5){ 
         this.currentStatus = 'online';
@@ -20,7 +26,19 @@ export class ServerStatusComponent {
       }else{
         this.currentStatus = 'unknown';
       }
-    },5000)
+    },5000);
+
+    /*this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    })*/
+  }
+
+  ngAfterViewInit() {
+    console.log('after view init');
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.interval);
   }
 
 }
