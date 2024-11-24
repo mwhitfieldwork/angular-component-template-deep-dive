@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, output, Output, viewChild, ViewChild } from '@angular/core';
 import { ButtonComponent } from '../../../shared/button/button.component';
 import { ControlComponent } from "../../../shared/control/control.component";
 import { FormsModule } from '@angular/forms';
+import { Ticket } from '../ticket.model';
 
 @Component({
   selector: 'app-new-ticket',
@@ -11,6 +12,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-ticket.component.css'
 })
 export class NewTicketComponent implements AfterViewInit {
+
+  //@Output() add = new EventEmitter<{title:string, text:string}>(); //former way, same thing
+  add = output<{title:string, text:string}>(); //same as above, more modern way
+
+
   @ViewChild('form')form?:ElementRef<HTMLFormElement>; //store the value of the template variable  on the var
                                       //Using ElementRef to get access to the DOM. it will be wrapped in the ELementRef
                                       //But ElementRef needs informtation about the dom that it will be wrapping within the  <>
@@ -26,10 +32,12 @@ ngAfterViewInit() {
 }
 
 
-onSubmit() {
+onSubmit(title:string, ticketText:string){
+    this.add.emit({title:title, text:ticketText});
     this.form?.nativeElement.reset();// you can reset the form because it is a HTMLFormElement, not a DOM - but 
                                     // But if you use the nativeElemment you can get access to the reset() and other DOM attributes
     console.dir('submitted', this.form);
     //this.form()?.nativeElement.reset(); //use of the signal version
-  }
+}
+
 }
