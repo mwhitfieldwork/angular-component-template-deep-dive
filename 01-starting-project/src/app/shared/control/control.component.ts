@@ -1,4 +1,4 @@
-import { Component, contentChild, ContentChild, ElementRef, input, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, afterNextRender, afterRender, Component, contentChild, ContentChild, ElementRef, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',// THE APP-CONTROL SELECTOR - THIS IS ALSO THE HOST ELEMENT - WHICH CAN BE TARGETED BY CSS
@@ -17,8 +17,21 @@ import { Component, contentChild, ContentChild, ElementRef, input, ViewEncapsula
   //add a class of control to the <app-control> element whereever it is used. Short cut    
 })
 
-export class ControlComponent {
+
+
+export class ControlComponent implements AfterContentInit {
 label = input.required<string>();
+
+
+constructor() {
+  afterRender(() => {
+    //called if anything changes in the angular app ( over and over)
+  })
+
+  afterNextRender(() => {
+    // (called only once ) and after the next change in the angular app
+  })
+}
 
 //private control = contentChild<ElementRef<HTMLInputElement|HTMLTextAreaElement>>('input') 
 //Tell typescript which types will be in the signal
@@ -30,6 +43,11 @@ label = input.required<string>();
 
 //ContentChild is used instead of ContentChildren because when the template-read dom elements are accessed,
 //there will be only one instance of either the textarea or the input element 
+
+ngAfterContentInit(): void {
+  // the content child is available here but not in the ngOnInit method
+}
+
 onclick() {
   console.log('clicked');
   console.log(this.control);
