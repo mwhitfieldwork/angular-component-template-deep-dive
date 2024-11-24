@@ -1,5 +1,22 @@
-<article>
-    <div id="new-ticket">
-      <app-new-ticket (add)="onAddTicket($event)"></app-new-ticket>
-    </div>
-</article>
+
+<div>
+  <ul>
+    <li><!-- @for is only available in angullar 17 or later -->
+      @for(ticket of tickets; track ticket.id) { <!-- must use track for the unique identifier-->
+      <app-ticket [data]="ticket"/>
+      <!-- {{$first}}
+            {{$last}}
+            {{$odd}}
+            {{$even}}
+            {{$count}}--prints a count of items displayed
+            -->
+      }@empty { <!-- add this is the array might be empty - fallback content-->
+        <p>no tickets available</p>
+      }
+    </li>
+  </ul>
+</div>
+<div id="new-ticket">
+  <app-new-ticket (add)="onAddTicket($event)"></app-new-ticket>
+</div>
+
