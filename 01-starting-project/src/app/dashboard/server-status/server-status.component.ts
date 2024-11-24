@@ -8,6 +8,7 @@ import { AfterViewInit, Component,DestroyRef, OnDestroy, OnInit } from '@angular
   styleUrl: './server-status.component.css'
 })
 export class ServerStatusComponent implements OnInit, AfterViewInit, OnDestroy {
+  //currentStatus: 'online' | 'offline' | 'unknown' = 'online'; //Without the use of  signals
   currentStatus: 'online' | 'offline' | 'unknown' = 'online';
 
   //the use of private in  angular means that we dont need it in the template
