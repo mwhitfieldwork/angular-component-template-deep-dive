@@ -13,6 +13,9 @@ import { Ticket } from '../ticket.model';
 })
 export class NewTicketComponent implements AfterViewInit {
 
+  enteredTitle = '';
+  enteredText = '';
+
   //@Output() add = new EventEmitter<{title:string, text:string}>(); //former way, same thing
   add = output<{title:string, text:string}>(); //same as above, more modern way
 
@@ -32,12 +35,17 @@ ngAfterViewInit() {
 }
 
 
-onSubmit(title:string, ticketText:string){
-    this.add.emit({title:title, text:ticketText});
+onSubmit(){
+    this.add.emit({title:this.enteredTitle, text:this.enteredText, });
     this.form?.nativeElement.reset();// you can reset the form because it is a HTMLFormElement, not a DOM - but 
                                     // But if you use the nativeElemment you can get access to the reset() and other DOM attributes
     console.dir('submitted', this.form);
     //this.form()?.nativeElement.reset(); //use of the signal version
+
+    //resetting in two way binding
+    this.enteredTitle = '';
+    this.enteredText = '';
+
 }
 
 }
