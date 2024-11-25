@@ -3,7 +3,7 @@
   <ul>
     <li><!-- @for is only available in angullar 17 or later -->
       @for(ticket of tickets; track ticket.id) { <!-- must use track for the unique identifier-->
-      <app-ticket [data]="ticket"/>
+      <app-ticket [data]="ticket" (close)="onCloseTicket(ticket.id)"/>
       <!-- {{$first}}
             {{$last}}
             {{$odd}}
